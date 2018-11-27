@@ -1,0 +1,5 @@
+Code can be run by running assignment1.py, which creates the plots and outputs which can be seen in the report.
+
+Libraries:
+matplotlib
+numpy
