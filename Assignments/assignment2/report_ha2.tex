@@ -8,6 +8,18 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
+\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools} %doing math
+\usepackage{algorithmicx, algpseudocode}
+
+\newcommand{\summ}{\frac{1}{N}\sum_{i=1}^{N}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\E}{\mathbbm{E}}
+\newcommand{\Prob}{\mathbb{P}} 
+\newcommand{\itt}{\intertext}
+
 % Sensible defaults for lstlistings
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -33,16 +45,20 @@
 \tableofcontents
 
 \section{Illustration of Hoeffding's Inequality}
+\input{illustration_hoeffding/illustration_hoeffding}
 
 \section{The effect of scale (range) and normalisation of random variables in
 Hoeffding's inequality}
-
+\input{effect_scale/efect_scale}
 
 \section{A Very Practical Question}
+\input{very_practical/very_practical}
 
 \section{Probability in Practice (``The Airline Question'')}
+\input{probability_in_practice/probability_in_practice}
 
 \section{Logistic Regression}
+\input{logistic_regression/logistic_regression}
 
 \end{document}
 
