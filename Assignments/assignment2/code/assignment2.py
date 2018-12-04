@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy as scp
-import scipy.linalg as lalg
+from sklearn.linear_model import LogisticRegression
 
 ###
 # Exercise 1
@@ -58,7 +58,7 @@ def chebychev_bound(mu, alpha, n) :
 freqs['hoeffding_bound'] = freqs['mean'].apply(lambda x : hoeffding_bound(bias, x, n))
 freqs['markov_bound'] = freqs['mean'].apply(lambda x : markov_bound(bias, x))
 freqs['chebychev_bound'] = freqs['mean'].apply(lambda x : chebychev_bound(bias, x, n))
-freqs = freqs[freqs['mean']>=0.49]
+freqs = freqs[freqs['mean']>=0.5]
 
 print(freqs['hoeffding_bound'])
 print(freqs['markov_bound'])
@@ -70,7 +70,7 @@ plt.plot(freqs['mean'], freqs['hoeffding_bound'], label = 'hoeffding bound')
 plt.plot(freqs['mean'], freqs['markov_bound'], label = 'markov bound')
 plt.plot(freqs['mean'], freqs['chebychev_bound'], label = 'chebyshev bound')
 plt.xlabel('Treshold (alpha)', fontsize = 'large')
-plt.ylabel('frequency', fontsize = 'large')
+plt.ylabel('Fraction of row average', fontsize = 'large')
 plt.legend()
 plt.savefig('ex1.png')
 
@@ -79,6 +79,7 @@ print("hoeffding 1")
 print(hoeffding_bound(0.5,1,20))
 print("hoeffding 0.95")
 print(hoeffding_bound(0.5,0.95,20))
+
 ###
 # Excercise 3
 ###
@@ -106,8 +107,8 @@ train_set.columns = ['length', 'width', 'label']
 test_set.columns = ['length', 'width', 'label']
 
 # remove class 2 from test and train set
-train_set = train_set.loc[train_set.species != 2, :]
-test_set = test_set.loc[test_set.species != 2, :]
+train_set = train_set.loc[train_set.label != 2, :]
+test_set = test_set.loc[test_set.label != 2, :]
 
 # Size 62/ 26
 
