@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools} %doing math
+\usepackage{algorithmicx, algpseudocode}
+
+% Sensible defaults for lstlistings
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  commentstyle=\bfseries\color{purple!40!black}
+  frame=L,
+  identifierstyle=\color{blue},
+  keywordstyle=\bfseries\color{green!40!black},
+  language=python,
+  showstringspaces=false,
+  stringstyle=\color{orange},
+  xleftmargin=\parindent,
+}
+
+\title{\vspace{-5cm} Assignment 3}
+\author{Silvan Robert Adrian - zlp432}
+
+\begin{document}
+\maketitle
+
+% Usually unnecessary, but this simplifies grading for us TAs
+\tableofcontents
+
+\section{The Role of Independence}
+\input{role_of_independence/role_of_independence}
+
+\section{To Split or Not To Split? (And How to Split.)}
+\input{to_split_or_not/to_split_or_not}
+
+\section{Occam's Razor}
+\input{occams_razor/occams_razor}
+
+\section{Kernels}
+\input{kernels/kernels}
+
+\end{document}
+
