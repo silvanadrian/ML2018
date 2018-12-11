@@ -42,6 +42,6 @@ No we can say as an example that we want to have a certainty of $1-\delta = 0.90
 \subsection{Question 4}
 \textbf{a)} By choosing a large $\alpha$ we would have the advantage of also having a large validation set $S_{val}^1$, which means a better chance of choosing the hypothesis in $\mathcal{H}$ with the lowest expected loss. This also means we should expect a lower empirical loss on the test set $S_{val}^2$.
 The downside is that with a large $\alpha$ also the test set gets smaller, so we got more uncertain how well the empirical loss reflect the true expected loss.
-By choosing a smaller $\alpha$ we end up in similar issues as described for a bigger $\alpha$ but the other way around, lower change of choosing the hypothesis in $\mathcal{H}$ with the lowest expected loss.\\
+By choosing a smaller $\alpha$ we end up in similar issues as described for a bigger $\alpha$ but the other way around, lower chance of choosing the hypothesis in $\mathcal{H}$ with the lowest expected loss.\\
 \textbf{b)} I would make this selection according to the size of $M$, so when $M$ becomes larger I would also choose $\alpha$ larger.
-Since the larger the hypothesis space gets, this also means a bigger probability of choosing a bad hypothesis $\hat{h}^*$, if the validation set is too small.
+Since the larger the hypothesis space gets, this also means a bigger probability of choosing a bad hypothesis $\hat{h}^*$.
