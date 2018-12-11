@@ -1,5 +1,6 @@
 \subsection{Question 1}
-Let $d\in \mathbb{N}_0$ and let $\Sigma_d$ and $\mathcal{H}_d$ be defined as in the assignment text. $\Sigma_d$ consists of all strings of length $d$, which can be constructed using letters from the alfabet $\Sigma$. Therefore, the size of $\Sigma_d$ is the number of ways to choose $d$ elements from $\Sigma$ with replacement. This means that 
+From the definition of the assignment text we can say that the size of $\Sigma_d$ is the number of ways to choose $d$ elements from $\sigma$ with replacement.
+Which means that:
 \begin{align}
 |\Sigma_d| = |\Sigma|^d = 27^d 
 \end{align}
@@ -21,6 +22,8 @@ Since we have insisted to use a very complex hypothesis space, the size of $\mat
 \end{align}
 grows exponentially as a function of $d$. Therefore, we would have to choose $d$ quite small or have a very large sample size $n$ in order to get a useful bound in practice.
 
+
+%Question2
 \subsection{Question 2}
 Let $\mathcal{H}$ be defined as in the assignment text. Since $\mathcal{H}_d$ is finite for all $d\in \mathbb{N}_0$, then $\mathcal{H}_d$ is countable for all $d\in \mathbb{N}_0$. Therefore, $\mathcal{H}$ is a countable union of countable sets, which means that $\mathcal{H}$ is also countable. Therefore, we can use $\textbf{Theorem 3.3}$ to conclude that with probability $1 - \delta$ for all $h \in \mathcal{H}$
 \begin{align}
@@ -35,6 +38,8 @@ Since $\sum_{d=0}^\infty \frac{1}{2^{d+1}}=1$, then $\sum_{d=0}^\infty p(h) \leq
 L(h) \leq \hat{L}(h,S) + \sqrt{\frac{\ln \frac{2^{d(h) + 1} 2^{27^{d(h)}}}{\delta}}{2n}}
 \end{align}
 
+
+% Question 3
 \subsection{Question 3}
 The term 
 \begin{align}

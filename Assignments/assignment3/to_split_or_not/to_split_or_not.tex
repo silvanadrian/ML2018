@@ -27,40 +27,21 @@ No it wasn't a good idea, since the bound is growing linear with $M$ instead of 
 L(\hat{h}^*) \leq \hat{L}(\hat{h}^*, S_{val}) + \sqrt{\frac{\ln \frac{1}{\delta}}{2\frac{n}{2}}} = \hat{L}(\hat{h}^*, S_{val}) + \sqrt{\frac{ \ln \frac{1}{\delta}}{n}}
 \end{align}
 \textbf{b)} 
-
-
-\textbf{rewrite}
-Assume that my fellow student followed this procedure, and I followed the procedure in question 1. Let $\hat{h}^*$ be the hypothesis that I end up choosing, and let $\tilde{h}^*$ be the hypothesis my fellow student chooses. Where I am using the full $S_{val}$ to choose $\hat{h}^*$, my fellow student is only using $S^1_{val}$ to choose $\tilde{h}^*$. Therefore, we cannot not be sure that $\hat{h}^* = \tilde{h}^*$. Apart from not knowing whether we choose the same hypothesis, we also do not test our chosen hypothesis on the same set. Where I am using $S_{val}$, my fellow student is using $S_{val}^2$. All in all, it is therefore not very easy to tell know how close my empirical error $\hat{L}(\hat{h}^*,S_{val})$ is to the empirical error $\hat{L}(\tilde{h}^*,S_{val}^2)$ of my fellow student. However, we can say that I have a higher probability of choosing the hypothesis $h_i$ in $\mathcal{H}$ with the lowest expected loss $L(h_i)$, since I am using a bigger validation set to inform my decision.
-
-If we assume that $\hat{L}(\hat{h}^*,S_{val}) = \hat{L}(\tilde{h}^*,S_{val}^2)$, then we know that my bound is tighter than my fellow student's, if and only if
+Since we have my hypothesis and the hypothesis of my fellow student, let $\hat{h}^*$ be my hypothesis which I choose and $\bar{h}^*$ for the fellow student.
+I will use the full $S_{val}$ to choose my hypothesis $\hat{h}^*$ while the fellow student uses $S^1_{val}$ to choose $\bar{h}^*$
+From the assignment text we then assume:
+$\hat{L}(\hat{h}^*,S_{val}) = \hat{L}(\bar{h}^*,S_{val}^2)$, from that we know that my bound will be tighter, if:
 \begin{align}
-\sqrt{\frac{\ln \frac{M}{\delta}}{2n}} < \sqrt{\frac{ \ln \frac{1}{\delta}}{n}} 
+\sqrt{\frac{\ln \frac{M}{\delta}}{2n}} < \sqrt{\frac{ \ln \frac{1}{\delta}}{n}}\\
+= \ln \frac{M}{\delta} < 2 \ln \frac{1}{\delta}\\
+= \frac{M}{\delta} < \left( \frac{1}{\delta} \right)^2\\
+= M \delta < 1
 \end{align}
-This is equivalent to
-\begin{align}
-\ln \frac{M}{\delta} < 2 \ln \frac{1}{\delta}
-\end{align}
-which is equivalent to
-\begin{align}
-\frac{M}{\delta} < \left( \frac{1}{\delta} \right)^2
-\end{align}
-which is equivalent to
-\begin{align}
-M \delta < 1
-\end{align}
-This means that under the assumption that $\hat{L}(\hat{h}^*,S_{val}) = \hat{L}(\tilde{h}^*,S_{val}^2)$, then if we for instance wanted a certainty $1-\delta = 0.95$, then my procedure would have a tighter bound, if and only if $M < 20$. 
-
-As I had already said, then even if we had a big $M$, my fellow student would still be less certain than me of picking the best hypothesis in $\mathcal{H}$, which is a drawback of his method.
-
-
-
+No we can say as an example that we want to have a certainty of $1-\delta = 0.90$, then my bound would only be tighter for $M < 10$.\\\\
+\textbf{c)} Since I use a a bigger validation set then my fellow student I would have the higher probability of choosing $h_i$ in $\mathcal{H}$ with lowest expected loss $L(h_i)$, even if $M$ is large. Which I would see as a drawback of the chosen method.
 \subsection{Question 4}
-As I have already explained in question 3, then choosing a large $\alpha$ - and thereby a large validation set $S_{val}^1$ - means having a better chance of choosing the hypothesis in $\mathcal{H}$, which actually has the lowest expected loss, as $\hat{h}^*$. This also means that we should expect a lower empirical loss $L(\hat{h}^*,S_{val}^2)$ on the test set $S_{val}^2$ than if we had used a smaller validation set to choose $\hat{h}^*$. However, a large $\alpha$ also means a small test set. Therefore, we also get more uncertain how well the empirical loss $L(\hat{h}^*,S_{val}^2)$ on the test set reflects the true expected loss $L(\hat{h}^*)$. This can be seen by the fact that the term
-\begin{align}
-\sqrt{\frac{ \ln \frac{1}{\delta}}{2(1-\alpha)n}}
-\end{align}
-in our bound
-\begin{align}
-L(\hat{h}^*) \leq = \hat{L}(\hat{h}^*, S_{val}^2) + \sqrt{\frac{ \ln \frac{1}{\delta}}{2(1-\alpha)n}}
-\end{align}
-grows when $\alpha$ becomes larger. All in all, it therefore not clear whether a larger $\alpha$ will make us choose $\hat{h}^*$, such that the resulting bound on $L(\hat{h}^*)$ becomes larger or smaller. In general, the larger $M$ becomes, the larger I would also choose $\alpha$, since a large hypothesis space also means a large probability of accidentally choosing a bad hypothesis as $\hat{h}^*$, if the validation set is too small.
+\textbf{a)} By choosing a large $\alpha$ we would have the advantage of also having a large validation set $S_{val}^1$, which means a better chance of choosing the hypothesis in $\mathcal{H}$ with the lowest expected loss. This also means we should expect a lower empirical loss on the test set $S_{val}^2$.
+The downside is that with a large $\alpha$ also the test set gets smaller, so we got more uncertain how well the empirical loss reflect the true expected loss.
+By choosing a smaller $\alpha$ we end up in similar issues as described for a bigger $\alpha$ but the other way around, lower change of choosing the hypothesis in $\mathcal{H}$ with the lowest expected loss.\\
+\textbf{b)} I would make this selection according to the size of $M$, so when $M$ becomes larger I would also choose $\alpha$ larger.
+Since the larger the hypothesis space gets, this also means a bigger probability of choosing a bad hypothesis $\hat{h}^*$, if the validation set is too small.

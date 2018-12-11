@@ -1,27 +1,27 @@
-Let $k$ be a kernel on input space $\mathcal{X}$ defining the RKHS $\mathcal{H}$, and let $\Phi: \mathcal{X} \to \mathcal{H}$ be the corresponding feature map. Let $\langle \cdot \rangle$ be the inner product on $\mathcal{H}$, which has been defined as part of the construction of $\mathcal{H}$ as the RKHS of $k$. 
-
-Let $x,z\in \mathcal{X}$. By definition of the canonical norm on a Hilbert space, we know that
+\subsection{Distance in feature space}
+Take the definitions from the assignment text.
+From the definition of canonical norm for Hilbert space we get:
 \begin{align}
 ||\Phi(x) - \Phi(z) ||^2 = \langle \Phi(x) - \Phi(z),\Phi(x) - \Phi(z) \rangle
 \end{align}
-Since any inner product on a Hilbert space must be linear in both arguments, we get that
+But since any inner product of a Hilbert space must be linear for both arguments we get:
 \begin{align}
 \langle \Phi(x) - \Phi(z),\Phi(x) - \Phi(z) \rangle = 
 \langle \Phi(x),\Phi(x) \rangle + \langle \Phi(z),\Phi(z) \rangle - 2\langle \Phi(x) , \Phi(z) \rangle
 \end{align}
-By line (19-20) we know get that
+From the above we get:
 \begin{align}
 ||\Phi(x) - \Phi(z) || = \sqrt{\langle \Phi(x),\Phi(x) \rangle + \langle \Phi(z),\Phi(z) \rangle - 2\langle \Phi(x) , \Phi(z) \rangle}
 \end{align}
-By construction of the RKHS of $k$, we know that for all $x_1, x_2 \in \mathcal{X}$
+We know that for all $x_1, x_2 \in \mathcal{X}$
 \begin{align}
 k(x_1,x_2)=\langle \Phi(x_1), \Phi(x_2) \rangle
 \end{align}
-By line (21-22) we know have that
+From above it follows:
 \begin{align}
 ||\Phi(x) - \Phi(z) || = \sqrt{k(x,z) + k(z,z) - 2k(x,z)}
 \end{align}
-which is what I was asked to show.
+
 
 \subsection{Sum of kernels}
 
