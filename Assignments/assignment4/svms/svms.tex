@@ -1,0 +1,79 @@
+% normalization
+\subsection{Data normalization}
+I define my normalization function $f_{norm}:\mathbb{R}^{22}\to \mathbb{R}^{22}$ by:
+\begin{align}
+f_{norm}(x) = \left(f^1_{norm}(x_1), ...,f^{22}_{norm}(x_{22})\right) 
+\end{align}
+where
+\begin{align}
+f^i_{norm}(x_i) = \frac{x_i - \mu_i}{\sigma_i}
+\end{align}
+$\mu_i$ and $\sigma_i$ are here the empirical mean and empirical standard deviation.
+
+I did do the computation with \texttt{sklearn} by using the \texttt{StandardScaler} from preprocessing in \texttt{sklearn}
+to normalize the data.
+
+Here we have the table of the mean and standard deviation, before and after the normalization of the training data:
+\begin{center}
+\input{code/train_set_normalized_table}
+\end{center}
+
+Same for test data, also sowing the before and after mean/standard deviation:
+\begin{center}
+\input{code/test_set_normalized_table}
+\end{center}
+
+So we can see now that each deviation in the training data end up to be 1 and the mean 0.
+But since we also use the empirical mean and standardized deviation of the training data for the test data we won't end up exactly on 1 or 0.
+But in the end the normalized means and normalized standard eviations end up still vey much more near to 1 or 0 than the original ones.
+
+% model selection
+\subsection{Model selection using grid-search}
+
+My selection for the logarithmic scale for $y$ and $C$, by setting $C=10$, and $y=0.1$ in the middle of the scale:
+\begin{align}
+\mathcal{C}=\{0.01,0.1,1,10,100,1000,10000\}\\ 
+\mathcal{Y} = \{0.0001,0.001,0.01,0.1,1,10,100 \}
+\end{align}
+
+I implemented the 5-cross validation with \texttt{GridSearchCV} from the python module \texttt{sklearn.model\_selection} in the \texttt{sklearn} library.
+Where we calculate each cross validation score for all pairs of $(C,y)$, the pair with the highest score would be then the best hyperparamter pair configuration we are searching for.
+So that I ended up using a heatmap to show all the cross validation scores from which we can read out the best possible configuration.
+
+\newpage
+\begin{figure}[!htpb]
+\begin{tabular}{rrrrrrrr}
+\toprule
+  & 0.0001   &  0.0010   &  0.0100   &  0.1000   &  1.0000   &  10.0000  &  100.0000 \\
+  &         &           &           &           &           &           &           \\
+\midrule
+ 0.01 & 0.734694 &  0.734694 &  0.734694 &  0.734694 &  0.734694 &  0.734694 &  0.734694 \\
+ 0.1 & 0.734694 &  0.734694 &  0.734694 &  0.734694 &  0.734694 &  0.734694 &  0.734694 \\
+ 1.0 & 0.734694 &  0.734694 &  0.867347 &  0.897959 &  0.795918 &  0.734694 &  0.734694 \\
+ 10.0 & 0.734694 &  0.877551 &  0.897959 &  \textcolor{red}{0.908163} &  0.795918 &  0.775510 &  0.734694 \\
+ 100.0 & 0.877551 &  0.887755 &  0.867347 &  0.908163 &  0.795918 &  0.775510 &  0.734694 \\
+ 1000.0 & 0.887755 &  0.846939 &  0.877551 &  0.908163 &  0.795918 &  0.775510 &  0.734694 \\
+ 10000.0 & 0.846939 &  0.877551 &  0.877551 &  0.908163 &  0.795918 &  0.775510 &  0.734694 \\
+\bottomrule
+\end{tabular}
+\caption{Showing all the cross validation scores in a table}
+\end{figure}
+
+
+Either from the table above or getting it from the outputs of my implementation, we will see that that the best validation score we get with the hyperparameters $\{C=10,y=0.1\}$.
+Is the validation score of $0.908163\approx$.
+Additionally we can calculate the accuracy of the cross validation which is: $0.907216\approx$
+
+\subsection{Inspecting the kernel expansion}
+For the purpose of calculating bounded and free bounded vectors I used \texttt{sklearn} again, by fitting the data again as in the exercise before and then keep $y$ the same while going through various values of $C$.
+Then I came to following solutions:
+\begin{minted}{text}
+	C = 0.1,   bounded support vectors: 54, free support vectors: 0
+	C = 10,    bounded support vectors: 23, free support vectors: 17
+	C = 100,   bounded support vectors: 12, free support vectors: 20
+	C = 1000,  bounded support vectors: 1 , free support vectors: 26
+	C = 10000, bounded support vectors: 0 , free support vectors: 26 
+\end{minted}
+As we see above the value of $C$ affects the misclassification rate of training examples. For small values of $C$ a large-margin hyperplane will be still used regardless of the misclassification rate.
+For larger values of C, the SVM will pick a smaller-margin hyperplane provided it minimizes the misclassification rate.
+

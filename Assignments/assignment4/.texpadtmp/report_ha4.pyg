@@ -1,0 +1,5 @@
+	C = 0.1,   bounded support vectors: 54, free support vectors: 0
+	C = 10,    bounded support vectors: 23, free support vectors: 17
+	C = 100,   bounded support vectors: 12, free support vectors: 20
+	C = 1000,  bounded support vectors: 1 , free support vectors: 26
+	C = 10000, bounded support vectors: 0 , free support vectors: 26
