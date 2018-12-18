@@ -1,37 +1,48 @@
 \subsection{Question 1}
-Let $\mathcal{H}$ be a finite hypothesis set with $|\mathcal{H}|=M$ hypotheses. We wish to derive a bound on the growth function $m_{\mathcal{H}}$. 
- 
-Since we have a finite hypothesis set it is clear that an upper bound on the growth function is $M$. Further from Definition 2.2 we now that the growth function $m_{\mathcal{H}}(n)$ is bounded by $2^n$. Summarizing these arguments yields that 
+Let $\mathcal{H}$ be a finite hypothesis set with $|\mathcal{H}|=M$ hypotheses. 
+
+Because we have a finite hypothesis set, we know that an upper bound on the growth function is $M$.
+
+We also know that the growth function $m_{\mathcal{H}}(n)$ is bounded by $2^n$ from definition 2.2 (learning from data book).
+So from these arguments we can say that it holds:
 \[ m_{\mathbb{H}}(n) \leq \min \lbrace M, 2^n \rbrace. \]   
 
-The VC-dimension, $d_{\text{vc}}(\mathcal{H})$, of a hypothesis set $\mathcal{H}$ is the largest value of $N$ for which $m_{\mathcal{H}}(N)=2^N$. In other words we get that 
-\[ M=2^N \Leftrightarrow d_{\text{vc}}(\mathcal{H})=N=\frac{\log M}{\log 2} \] 
-\subsubsection*{2}
-We have from 1 that $m_{\mathbb{H}}(n) \leq \min \lbrace M, 2^{2n} \rbrace$. We now consider the two possible cases: 
-
-In the case when $M \leq 2^{2n}$ then $m_{\mathbb{H}}(n) \leq M \leq M^2$, where $M^2$ is the bound on $m_{\mathbb{H}}(n)^2$.  
-
-In the case when $M > 2^{2n}$ then $m_{\mathbb{H}}(n) \leq 2^{2n}$, but $2^{2n}$ is in this case also the bound on $m_{\mathbb{H}}(n)^2$. 
-
-All in all we must have that 
-
+\subsection{Question 2}
+skipped
 \subsection{Question 3}
-We wish to prove by induction that 
-\[ \sum_{i=0}^d \binom{n}{i} \leq n^d+1. \] 
-First we show that it holds for $d=0$. We get 
-\[ \sum_{i=0}^0 \binom{n}{i}=\binom{n}{0}=\frac{n!}{0!(n-0)!}=\frac{n!}{n!}=1 < n^0+1=2 \]
-We now assume it holds up from $1$ up to $d-1$, and wish to show that it also holds for $d$. We get 
-\begin{align*}
-\sum_{i=0}^d \binom{n}{i} = \sum_{i=0}^{d-1} \binom{n}{i} + \binom{n}{d}  \stackrel{ind. ass.}{\leq} n^{d-1}+1+\frac{n!}{d!(n-d)!} \leq n^d+1,
-\end{align*}
-where the last inequality follows by using the properties of the binomial coefficient!
+We do know have from question 1 that $m_{\mathbb{H}}(n) \leq \min \lbrace M, 2^{2n} \rbrace$. 
+
+So we have to consider 2 cases:
+
+For the case when $M \leq 2^{2n}$ then $m_{\mathbb{H}}(n) \leq M \leq M^2$, where $M^2$ is the bound on $m_{\mathbb{H}}(n)^2$. 
+
+And for the case $M > 2^{2n}$ then $m_{\mathbb{H}}(n) \leq 2^{2n}$, but $2^{2n}$ is in this case also the bound on $m_{\mathbb{H}}(n)^2$. 
+
+So over all we must have:
+\[m_{\mathbb{H}}(2n)\leq m_{\mathbb{H}}(n)^2 .\] 
+
+
 \subsection{Question 4}
-From Theorem 2.4 in Learning From Data we have that if $m_{\mathcal{H}}(k) < 2^k$ for some $k$ then it holds for all $N$ that 
+Since I haven't done the prove before, here I have done the prove by induction:
+\[ \sum_{i=0}^d \binom{n}{i} \leq n^d+1. \] 
+First show that it holds for $d=0$: 
+\[ \sum_{i=0}^0 \binom{n}{i}=\binom{n}{0}=\frac{n!}{0!(n-0)!}=\frac{n!}{n!}=1 < n^0+1=2 \]
+Now we want to show that is also holds for $1$ up to $d-1$:
+\begin{align*}
+\sum_{i=0}^d \binom{n}{i} = \sum_{i=0}^{d-1} \binom{n}{i} + \binom{n}{d} {\leq} n^{d-1}+1+\frac{n!}{d!(n-d)!} \leq n^d+1,
+\end{align*}
+Now we want to derive the bound on $m_{\mathcal{H}}(n)$.
+From theorem 2.4 (Learning From Data) we know that if $m_{\mathcal{H}}(k) < 2^k$ for some  value $k$ then for all $N$:
 \[m_{\mathcal{H}}(N) \leq \sum_{i=0}^{k-1} \binom{N}{i}. \]
-By using this result together with the result from 3, we get the following bound on $m_{\mathcal{H}}(n)$
+Now we use the result of the induction above and the theorem 2.4 from the book, so that we end up on the following bound:
 \[m_{\mathcal{H}}(n) \leq \sum_{i=0}^{k-1} \binom{n}{i} \leq n^{d-1}+1. \] 
-\subsubsection*{5}
-By using the bound from 4 we get the following VC generalization bound by inserting into Theorem 2.5 of Learning From Data
+\subsection{Question 5}
+Now using the bound from 4 we will get the following VC generalization bound, by inserting it into theorem 2.5 from the book (learning from data):
 \[E_{\text{out}}(g) \leq E_{\text{in}}(g) + \sqrt{ \frac{8}{N} \ln \frac{4m_{\mathcal{H}}(2n)}{\delta}} \leq E_{\text{in}}(g) + \sqrt{ \frac{8}{N} \ln \frac{4 \left((2n)^{d-1}+1 \right)}{\delta}} \] 
-Since the bound is derived from using binomial coefficients we must have that $d \leq n$. Otherwise the following quantity is not meaningful (negative factorials are not defined) 
-\[ \binom{n}{d}=\frac{n!}{d!(n-d)!}\]  
+
+\subsection{Question 6}
+Since the bound is derived from using binomial coefficients we must have that $d \leq n$. Since negative factorials are not defined which would not be meaningful. 
+\[ \binom{n}{d}=\frac{n!}{d!(n-d)!}\] 
+
+\subsection{Question 7}
+skipped

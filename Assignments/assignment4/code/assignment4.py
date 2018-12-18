@@ -3,7 +3,6 @@ import scipy as scp
 from sklearn import preprocessing
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
-import matplotlib.pyplot as plt
 
 parkinson_train = pd.read_table('parkinsonsTrainStatML.dt', header = None, sep = ' ')
 parkinson_test = pd.read_table('parkinsonsTestStatML.dt', header = None, sep = ' ')
@@ -37,7 +36,7 @@ table = table.round(4)
 table['normalized mean'] = abs(table['normalized mean'])
 table.to_latex(buf='train_set_normalized_table.tex', index=False)
 
-# Create table with means and eviations for test set and output it as latex
+# Create table with means and deviations for test set and output it as latex
 table = pd.DataFrame({'before mean' : scp.mean(parkinson_test, axis = 0),
                       'normalized mean' : scp.mean(x_test, axis = 0), 
 					  'before std. deviation' : scp.std(parkinson_test, axis = 0),
@@ -53,33 +52,33 @@ table['normalized mean'] = abs(table['normalized mean'])
 table.to_latex(buf='test_set_normalized_table.tex', index=False)
 
 # set paramas gamma (y) and C
-param_grid = {'C' : scp.logspace(-2,4,7, base=10), 'gamma' : scp.logspace(-4,2,7, base=10)}
+param_grid = {'C' : [0.01,0.1,1,10,100,1000,10000], 'gamma' : [0.0001,0.001,0.01,0.1,1,10,100]}
 
 # 5 fold cross validation
-clf = GridSearchCV(SVC(kernel = 'rbf'), param_grid, iid=True,cv=5, return_train_score=True)
+model = GridSearchCV(SVC(kernel = 'rbf'), param_grid, iid=True,cv=5, return_train_score=True)
 
 #Fit the model
-clf.fit(x_train,y_train)
+model.fit(x_train,y_train)
 
 # Cross validation result
-cross_validation_results = pd.DataFrame(clf.cv_results_)[['mean_test_score','params']]
+cross_validation_results = pd.DataFrame(model.cv_results_)[['mean_test_score','params']]
 cross_validation_results['C'] = cross_validation_results.params.apply(lambda d : d['C'])
 cross_validation_results['Y'] = cross_validation_results.params.apply(lambda d : d['gamma'])
 cross_validation_results = cross_validation_results.pivot(index = 'C', columns = 'Y', values = 'mean_test_score')
 
+# Write results to table
 cross_validation_results.to_latex(buf='cross_validation_results_table.tex', index=False)
 
 print("Best params:")
-print(clf.best_params_)
+print(model.best_params_)
 print("Best Score:")
-print(clf.best_score_)
-print("Accuracy:")
-print(1 - sum(abs(clf.predict(x_test) - y_test))/len(y_test))
+print(model.best_score_)
 
 
 param_grid = {'C' : scp.logspace(-2,4,7, base=10), 'gamma' : [0.01]}
 for x in [0.1,10,100,1000,10000]:
-	clf = SVC(kernel = 'rbf', C = x, gamma = 0.01,verbose=True)
-	clf.fit(x_train,y_train)
-	print(clf.score)
+	model = SVC(kernel = 'rbf', C = x, gamma = 0.01,verbose=True)
+	model.fit(x_train,y_train)
+	# Print score for SVM which shows the free support vectors etc.
+	print(model.score)
 

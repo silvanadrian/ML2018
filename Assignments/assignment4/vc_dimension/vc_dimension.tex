@@ -1,6 +1,34 @@
 \subsection{Question 1}
-We consider $\mathcal{H}_+$ to be the class of positive circles in $\mathbb{R}^2$, and wish to determine the VC-dimension of of $\mathcal{H}_+$. The VC-dimension of a hypothesis set $\mathcal{H}$ is the largest value of $N$ for which $m_{\mathcal{H}}(N)=2^N$. Less formally it is the largest numbers of points we can shatter/classify by a hypothesis $h \in \mathcal{H}_+$.
+We consider $\mathcal{H}_+$ to be the class of positive circles in $\mathbb{R}^2$, and wish to determine the VC-dimension of of $\mathcal{H}_+$. The VC-dimension of a hypothesis set $\mathcal{H}$ is the largest value of $N$ for which $m_{\mathcal{H}}(N)=2^N$.
+ 	So in short we want to find the largest numbers of points we can shatter/classify by $h \in \mathcal{H}_+$.
 
- It is obvious that we can shatter every 2 distinct points by positive circles. To shatter 3 points by positive circles is a bit more difficult! If we consider 3 points they are either colinear or form a triangle. It is clear that we can not shatter 3 points on a line. If the 3 points form an equilateral triangle, we will actually be able to perfectly shatter the points! In other words a lower bound on the VC-dimension is 3. That we cannot find an example on 4 points, which can be shattered is a bit more difficult to show! 4 distinct points either form a line, or the convex hull is a triangle or a quadrilateral. 4 points on a line cannot be shattered, imagine if we wanted to classify point 2 and 4 as +1. If the convex hull is a triangle we will never be able to classify the 3 points forming the triangle as +1 and the point inside as -1. If the convex hull is a equilateral we would not be able to classify the two points on the 'diagonal. Summarizing these observations we must have that $d_{\text{VC}}(\mathcal{H}_+)=3$
+Well 2 points is obviously possible to shatter.
+More interesting are 3 points for which I created a figure to show all possible triangle arrangements $2^3$ arrangements:
+
+\begin{figure}[!htb]
+	\center
+	\includegraphics[width=\textwidth]{vc_dimension/vc-dimension}
+	\caption{shattering 3 points}
+\end{figure}
+
+So we now we would need to shatter 4 points, which is not in all cases possible, following a working case and a not working case:
+
+\begin{figure}[!htb]
+		\center
+	\includegraphics[width=0.5\textwidth]{vc_dimension/vc-dimension-2}
+	\caption{shattering 4 points}
+\end{figure}
+
+So here the right case wouldn't be possible to shatter with a circle.
+So therefore we need to have: $d_{\text{VC}}(\mathcal{H}_+)=3$.
 \subsection{Question 2}
-We now consider $\mathcal{H}= \mathcal{H}_+ \cup \mathcal{H}_-$, where $\mathcal{H}_-$ denotes negative circles in $\mathbb{R}^2$. Considering this hypothesis set, we can actually find examples on how to shatter 4 points in $\mathbb{R}^2$. For example if the convex hull forms a triangle, we can now classify the points forming the triangle by +1 by drawing a negative circle around the point inside the triangle. Thus we must at least have that $d_{\text{VC}}(\mathcal{H})=4$. That is not bigger than 4 is a bit more difficult to justify, but it is the case! You can verify this by considering the possible ways 5 points can be arranged (i.e colinear, convex hull is a triangle etc.)   
+In this question we consider $\mathcal{H}= \mathcal{H}_+ \cup \mathcal{H}_-$, where $\mathcal{H}_-$ denotes negative circles in $\mathbb{R}^2$. 
+In this case we are able to find examples which actually work with shattered 4 points:
+
+\begin{figure}[!htb]
+	\center
+	\includegraphics[width=0.3\textwidth]{vc_dimension/vc-dimension-3.png}
+	\caption{shattering 4 points}
+\end{figure}
+So now we can draw negative circles around negatives, since the negative circles are positive on the outside.
+This way we can say $d_{\text{VC}}(\mathcal{H})=4$, for all points more than 4 probably can also be shown that it would be possible but I only proved it for 4 now.   

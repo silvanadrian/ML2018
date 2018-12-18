@@ -1,13 +1,13 @@
 % normalization
 \subsection{Data normalization}
-I define my normalization function $f_{norm}:\mathbb{R}^{22}\to \mathbb{R}^{22}$ by:
-\begin{align}
+We get following normalization function from the assignment text: $f_{norm}:\mathbb{R}^{22}\to \mathbb{R}^{22}$ which means:
+\begin{align*}
 f_{norm}(x) = \left(f^1_{norm}(x_1), ...,f^{22}_{norm}(x_{22})\right) 
-\end{align}
-where
-\begin{align}
+\end{align*}
+from which we can say:
+\begin{align*}
 f^i_{norm}(x_i) = \frac{x_i - \mu_i}{\sigma_i}
-\end{align}
+\end{align*}
 $\mu_i$ and $\sigma_i$ are here the empirical mean and empirical standard deviation.
 
 I did do the computation with \texttt{sklearn} by using the \texttt{StandardScaler} from preprocessing in \texttt{sklearn}
@@ -18,7 +18,7 @@ Here we have the table of the mean and standard deviation, before and after the 
 \input{code/train_set_normalized_table}
 \end{center}
 
-Same for test data, also sowing the before and after mean/standard deviation:
+Same for test data, also showing the before and after mean/standard deviation:
 \begin{center}
 \input{code/test_set_normalized_table}
 \end{center}
@@ -31,14 +31,13 @@ But in the end the normalized means and normalized standard eviations end up sti
 \subsection{Model selection using grid-search}
 
 My selection for the logarithmic scale for $y$ and $C$, by setting $C=10$, and $y=0.1$ in the middle of the scale:
-\begin{align}
+\begin{align*}
 \mathcal{C}=\{0.01,0.1,1,10,100,1000,10000\}\\ 
 \mathcal{Y} = \{0.0001,0.001,0.01,0.1,1,10,100 \}
-\end{align}
+\end{align*}
 
 I implemented the 5-cross validation with \texttt{GridSearchCV} from the python module \texttt{sklearn.model\_selection} in the \texttt{sklearn} library.
 Where we calculate each cross validation score for all pairs of $(C,y)$, the pair with the highest score would be then the best hyperparamter pair configuration we are searching for.
-So that I ended up using a heatmap to show all the cross validation scores from which we can read out the best possible configuration.
 
 \newpage
 \begin{figure}[!htpb]
@@ -56,13 +55,11 @@ So that I ended up using a heatmap to show all the cross validation scores from 
  10000.0 & 0.846939 &  0.877551 &  0.877551 &  0.908163 &  0.795918 &  0.775510 &  0.734694 \\
 \bottomrule
 \end{tabular}
-\caption{Showing all the cross validation scores in a table}
+\caption{Showing all the cross validation scores}
 \end{figure}
 
 
 Either from the table above or getting it from the outputs of my implementation, we will see that that the best validation score we get with the hyperparameters $\{C=10,y=0.1\}$.
-Is the validation score of $0.908163\approx$.
-Additionally we can calculate the accuracy of the cross validation which is: $0.907216\approx$
 
 \subsection{Inspecting the kernel expansion}
 For the purpose of calculating bounded and free bounded vectors I used \texttt{sklearn} again, by fitting the data again as in the exercise before and then keep $y$ the same while going through various values of $C$.
@@ -74,6 +71,7 @@ Then I came to following solutions:
 	C = 1000,  bounded support vectors: 1 , free support vectors: 26
 	C = 10000, bounded support vectors: 0 , free support vectors: 26 
 \end{minted}
-As we see above the value of $C$ affects the misclassification rate of training examples. For small values of $C$ a large-margin hyperplane will be still used regardless of the misclassification rate.
-For larger values of C, the SVM will pick a smaller-margin hyperplane provided it minimizes the misclassification rate.
+We see that the number of bounded support vectors increase when we decrease $C$, and decrease when we increase $C$. 
+This does make sense since $C$ has the role to penalise misclassifications. So when we increase $C$ the model gets more complex, which mean it tries to fit all data points.
+
 
